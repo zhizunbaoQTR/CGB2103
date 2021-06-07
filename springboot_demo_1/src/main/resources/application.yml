@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: test
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  servlet:
+    context-path:
+  port: 8080
+hello:
+  msg: "我喜欢开发"
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+hello:
+  msg: "我喜欢测试"
+server:
+  servlet:
+    context-path:
+  port: 8090

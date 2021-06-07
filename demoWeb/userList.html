@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表展现</title>
+    <!--导入JS函数类库,导入JS文件-->
+    <script src="jquery-3.6.0.min.js"></script>
+    <!--编辑JS发起Ajax请求-->
+    <script>
+        // <!--让页面加载完成之后再次执行-->
+        // 语法:函数式编程
+        $(function () {
+            alert("页面加载完成,JQuery调用成功!!!")
+            // <!--  种类   1. $.get() 2. $.post() 3. $.getJSON() 4. $.ajax() -->
+            var url = "http://localhost:8080/getUser";
+            var name = "张三"
+            var age = 18
+            var arg1 = "name=" + name + "&age=" + age
+            var arg2 = {name: name, age: age}
+            $.get(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var user = data[i]
+                    var id = user.id
+                    var name = user.name
+                    var age = user.age
+                    var sex = user.sex
+                    var tr = " <tr align=\"center\"><td>" + id + "</td><td>" + name + "</td><td>" + age + "</td><td>" + sex + "</td></tr>"
+                    // console.log(user)
+                    $("#tab1").append(tr)
+                }
+                // for (var index in data) {
+                //     console.log(data[index])
+                // }
+                // for (var index of data) {
+                //     console.log(index)
+                // }
+            })
+            /**
+             * $.ajax相关说明
+             * 1.{key:value}
+             * 2.type:ajax请求的方式 get/post/put/delete
+             * 3.简化$.get(...) $.post(...)
+             * 4.url:远程服务器地址
+             * 5.JSONP:JS端解决跨域问题的一种机制,现在几乎不用了
+             */
+            $.ajax({
+                type: "get",
+                url: "http:localhost:8080/getUser",
+                //data:{key:value,key2:value2}
+                dataType:"json",
+                success: function (result) {//200
+                    console.log(result)
+                },
+                error: function () {
+                    alert("服务器正忙,请稍后!")
+                }
+
+
+            })
+
+
+        })
+            ["java编程","美团外卖",{"id":1,"name":"tomcat","names":["张三","李四",{}]}]
+        // ["java编程","美团外卖",["吃","玩",{"id":100,"names":[{"name":"梅超风"},{"张无忌":"赵敏"},[{"1":2,"2":3}]]}]]
+    </script>
+</head>
+
+<body>
+<!--json是一种轻    量级的数据交换格式,易于人阅读和编写,同时也易于机器解析和生成,并有效的提升网络传输效率+-->
+
+<table id="tab1" border="" width="500px" align="center">
+    <tr>
+        <td colspan="4" align="center"><h1>表格数据</h1></td>
+    </tr>
+    <tr align="center">
+        <td>ID编号</td>
+        <td>名称</td>
+        <td>年龄</td>
+        <td>性别</td>
+    </tr>
+    <tr align="center">
+        <td>100</td>
+        <td>测试数据1</td>
+        <td>18</td>
+        <td>女</td>
+    </tr>
+    <tr align="center">
+        <td>101</td>
+        <td>测试数据2</td>
+        <td>19</td>
+        <td>男</td>
+    </tr>
+</table>
+
+</body>
+</html>
